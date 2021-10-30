@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { load } from "js-yaml";
+import { dump, load } from "js-yaml";
 
 
 interface Extension {
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  onBlur() {
+  onLoad() {
     this.clusters = [];
     this.users = [];
     this.contexts = [];
@@ -96,5 +96,9 @@ export class AppComponent implements OnInit {
         this.contexts.push(item);
       }
     }
+  }
+
+  onDump() {
+    this.yamlText = dump(this.yamlObj);
   }
 }

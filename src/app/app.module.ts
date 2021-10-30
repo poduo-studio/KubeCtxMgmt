@@ -9,6 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { ScrollingModule } from "@angular/cdk/scrolling";
+import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
     MatIconModule,
     MatListModule,
     MatGridListModule,
-    ScrollingModule
+    ScrollingModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

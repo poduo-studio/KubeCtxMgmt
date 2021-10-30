@@ -1,5 +1,8 @@
-<textarea cols="200" rows="10" [(ngModel)]="yamlText" (blur)="onBlur()"></textarea>
-
+<textarea cols="200" rows="10" [(ngModel)]="yamlText"></textarea>
+<br>
+<button mat-raised-button color="primary" (click)="onLoad()">Load</button>
+<button mat-raised-button color="warn" (click)="onDump()">Dump</button>
+<br>
 <mat-grid-list cols="3" rowspan="6">
   <mat-grid-tile>
     <mat-list>

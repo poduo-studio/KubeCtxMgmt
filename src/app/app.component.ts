@@ -80,16 +80,21 @@ export class AppComponent implements OnInit {
   }
 
   onBlur() {
-    localStorage['yamlText'] = this.yamlText;
-    this.yamlObj = load(this.yamlText) as KubeConfig;
-    for (let item of this.yamlObj.clusters) {
-      this.clusters.push(item);
-    }
-    for (let item of this.yamlObj.users) {
-      this.users.push(item);
-    }
-    for (let item of this.yamlObj.contexts) {
-      this.contexts.push(item);
+    this.clusters = [];
+    this.users = [];
+    this.contexts = [];
+    if (this.yamlText) {
+      localStorage['yamlText'] = this.yamlText;
+      this.yamlObj = load(this.yamlText) as KubeConfig;
+      for (let item of this.yamlObj.clusters) {
+        this.clusters.push(item);
+      }
+      for (let item of this.yamlObj.users) {
+        this.users.push(item);
+      }
+      for (let item of this.yamlObj.contexts) {
+        this.contexts.push(item);
+      }
     }
   }
 }

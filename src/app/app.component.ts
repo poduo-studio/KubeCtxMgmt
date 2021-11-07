@@ -137,6 +137,9 @@ contexts:
     this.clusters.clear();
     this.users.clear();
     this.contexts.clear();
+    this.selectedContext = undefined;
+    this.selectedCluster = undefined;
+    this.selectedUser = undefined;
     if (this.yamlText) {
       sessionStorage['yamlText'] = this.yamlText;
       this.yamlObj = load(this.yamlText) as KubeConfig;

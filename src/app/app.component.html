@@ -3,38 +3,42 @@
 <button mat-raised-button color="primary" (click)="onLoad()">Load</button>
 <button mat-raised-button color="warn" (click)="onDump()">Dump</button>
 <br>
-<mat-grid-list cols="3" rowspan="6">
-  <mat-grid-tile>
-    <mat-list>
-      <div mat-subheader>Clusters</div>
-      <mat-list-item *ngFor="let cluster of clusters">
-        <mat-icon mat-list-icon>cluster</mat-icon>
-        <div mat-line>name: {{cluster?.name}}</div>
-        <div mat-line>server: {{cluster?.cluster?.server}}</div>
-<!--        <div mat-line>certificate-authority: <pre *ngIf="cluster?.cluster">{{cluster.cluster["certificate-authority"]}}</pre></div>-->
-<!--        <div mat-line>certificate-authority-data: <pre *ngIf="cluster?.cluster">{{cluster.cluster["certificate-authority-data"]}}</pre></div>-->
-      </mat-list-item>
-    </mat-list>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-list>
-      <div mat-subheader>Contexts</div>
-      <mat-list-item *ngFor="let context of contexts">
-        <mat-icon mat-list-icon>context</mat-icon>
-        <div mat-line>name: {{context?.name}}</div>
-        <div mat-line>cluster: {{context?.context?.cluster}}</div>
-        <div mat-line>namespace: {{context?.context?.namespace}}</div>
-        <div mat-line>user: {{context?.context?.user}}</div>
-      </mat-list-item>
-    </mat-list>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-list>
-      <div mat-subheader>Users</div>
-      <mat-list-item *ngFor="let user of users">
-        <mat-icon mat-list-icon>user</mat-icon>
-        <div mat-line>name: {{user?.name}}</div>
-      </mat-list-item>
-    </mat-list>
-  </mat-grid-tile>
-</mat-grid-list>
+
+<div fxLayout="row" fxLayoutAlign="space-around center" [formGroup]="formGroup">
+    <!--        <div mat-line>server: {{cluster?.cluster?.server}}</div>-->
+    <!--        <div mat-line>certificate-authority: <pre *ngIf="cluster?.cluster">{{cluster.cluster["certificate-authority"]}}</pre></div>-->
+    <!--        <div mat-line>certificate-authority-data: <pre *ngIf="cluster?.cluster">{{cluster.cluster["certificate-authority-data"]}}</pre></div>-->
+
+  <div fxLayout="column" formArrayName="clusters">
+    <div mat-subheader>Clusters</div>
+    <span *ngFor="let cluster of clusters.value; let i=index" [formGroupName]="i">
+      <mat-icon>cluster</mat-icon>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+    </span>
+  </div>
+
+  <div fxLayout="column" formArrayName="contexts">
+    <div mat-subheader>Clusters</div>
+    <span *ngFor="let context of contexts.value; let i=index" [formGroupName]="i">
+      <mat-icon>context</mat-icon>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+    </span>
+  </div>
+
+  <div fxLayout="column" formArrayName="users">
+    <div mat-subheader>Users</div>
+    <span *ngFor="let user of users.value; let i=index" [formGroupName]="i">
+      <mat-icon>user</mat-icon>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+    </span>
+  </div>
+</div>

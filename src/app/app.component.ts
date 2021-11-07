@@ -133,6 +133,6 @@ export class AppComponent implements OnInit {
   }
 
   onDump() {
-    this.yamlText = dump(this.yamlObj);
+    this.yamlText = dump(this.formGroup.value);
   }
 }

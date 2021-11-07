@@ -110,13 +110,21 @@ export class AppComponent implements OnInit {
         this.clusters.push(this.fb.group({
           'name': this.fb.control(item.name),
           'cluster': this.fb.group({
-            'server': this.fb.control(item.cluster.server)
+            'server': this.fb.control(item.cluster.server),
+            'certificate-authority': this.fb.control(item.cluster['certificate-authority']),
+            'certificate-authority-data': this.fb.control(item.cluster['certificate-authority-data'])
           }),
         }))
       }
       for (let item of this.yamlObj.users) {
         this.users.push(this.fb.group({
           'name': this.fb.control(item.name),
+          'cluster': this.fb.group({
+            'client-certificate-data': this.fb.control(item.user['client-certificate-data']),
+            'client-certificate': this.fb.control(item.user['client-certificate']),
+            'client-key-data': this.fb.control(item.user['client-key-data']),
+            'client-key': this.fb.control(item.user['client-key']),
+          }),
         }))
       }
       for (let item of this.yamlObj.contexts) {

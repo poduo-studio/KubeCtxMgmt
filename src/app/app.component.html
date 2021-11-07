@@ -14,14 +14,14 @@
     <br></mat-tab>
   <mat-tab label="Contexts">
     <span fxLayout="row">
-      <span [formGroup]="formGroup" fxFlex="40">
+      <span [formGroup]="formGroup" fxFlex="30">
         <div fxLayout="column" formArrayName="contexts">
           <span *ngFor="let item of contexts.controls; let i=index" [formGroupName]="i">
             <h2 (click)="onSelectContext(item)">{{ item.value.name }}</h2>
           </span>
         </div>
       </span>
-      <div *ngIf="selectedContext" [formGroup]="selectedContext" fxFlex="60">
+      <div *ngIf="selectedContext" [formGroup]="selectedContext" fxFlex="70">
         <mat-form-field appearance="fill">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Name" formControlName="name">
@@ -54,14 +54,14 @@
   </mat-tab>
   <mat-tab label="Clusters">
     <span fxLayout="row">
-      <span [formGroup]="formGroup" fxFlex="40">
+      <span [formGroup]="formGroup" fxFlex="30">
         <div fxLayout="column" formArrayName="clusters">
           <span *ngFor="let item of clusters.controls; let i=index" [formGroupName]="i">
             <h2 (click)="onSelectCluster(item)">{{ item.value.name }}</h2>
           </span>
         </div>
       </span>
-      <div *ngIf="selectedCluster" [formGroup]="selectedCluster" fxFlex="60">
+      <div *ngIf="selectedCluster" [formGroup]="selectedCluster" fxFlex="70">
         <mat-form-field appearance="fill">
           <mat-label>Name</mat-label>
           <input type="text" matInput formControlName="name">
@@ -86,14 +86,14 @@
   </mat-tab>
   <mat-tab label="Users">
     <span fxLayout="row">
-      <span [formGroup]="formGroup" fxFlex="40">
+      <span [formGroup]="formGroup" fxFlex="30">
         <div fxLayout="column" formArrayName="users">
           <span *ngFor="let item of users.controls; let i=index" [formGroupName]="i">
             <h2 (click)="onSelectUser(item)">{{ item.value.name }}</h2>
           </span>
         </div>
       </span>
-      <div *ngIf="selectedUser" [formGroup]="selectedUser" fxFlex="60">
+      <div *ngIf="selectedUser" [formGroup]="selectedUser" fxFlex="70">
         <mat-icon>user</mat-icon>
         <mat-form-field appearance="fill">
           <mat-label>Name</mat-label>

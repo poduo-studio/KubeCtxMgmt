@@ -145,37 +145,48 @@ contexts:
         kind: this.yamlObj.kind,
         preferences: this.yamlObj.preferences,
       });
-
       for (let item of this.yamlObj.clusters) {
-        this.clusters.push(this.fb.group({
-          'name': this.fb.control(item.name),
-          'cluster': this.fb.group({
-            'server': this.fb.control(item.cluster.server),
+        const g = {
+          name: this.fb.control(item.name),
+          cluster: this.fb.group({}),
+        };
+        if (item.cluster !== null && item.cluster !== undefined) {
+          g['cluster'] = this.fb.group({
+            server: this.fb.control(item.cluster?.server),
             'certificate-authority': this.fb.control(item.cluster['certificate-authority']),
             'certificate-authority-data': this.fb.control(item.cluster['certificate-authority-data'])
-          }),
-        }))
+          });
+        }
+        this.clusters.push(this.fb.group(g));
       }
       for (let item of this.yamlObj.users) {
-        this.users.push(this.fb.group({
-          'name': this.fb.control(item.name),
-          'cluster': this.fb.group({
+        const g = {
+          name: this.fb.control(item.name),
+          cluster: this.fb.group({}),
+        };
+        if (item.user !== null) {
+          g['cluster'] =this.fb.group({
             'client-certificate-data': this.fb.control(item.user['client-certificate-data']),
             'client-certificate': this.fb.control(item.user['client-certificate']),
             'client-key-data': this.fb.control(item.user['client-key-data']),
             'client-key': this.fb.control(item.user['client-key']),
-          }),
-        }))
+          });
+        }
+        this.users.push(this.fb.group(g));
       }
       for (let item of this.yamlObj.contexts) {
-        this.contexts.push(this.fb.group({
-          'name': this.fb.control(item.name),
-          'context': this.fb.group({
-            'cluster': this.fb.control(item.context.cluster),
-            'namespace': this.fb.control(item.context.namespace),
-            'user': this.fb.control(item.context.user),
-          }),
-        }))
+        const g = {
+          name: this.fb.control(item.name),
+          context: this.fb.group({}),
+        };
+        if (item.context != null) {
+          g['context'] = this.fb.group({
+            cluster: this.fb.control(item.context?.cluster),
+            user: this.fb.control(item.context?.user),
+            namespace: this.fb.control(item.context?.namespace),
+          });
+        }
+        this.contexts.push(this.fb.group(g));
       }
     }
   }

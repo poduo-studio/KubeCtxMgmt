@@ -53,7 +53,8 @@ interface Users {
 interface KubeConfig {
   apiVersion: string;
   'current-context': string;
-  'kind': string;
+  kind: string;
+  preferences: Object;
   clusters: Clusters[]
   contexts: Contexts[];
   users: Users[];
@@ -89,6 +90,9 @@ export class AppComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.formGroup = fb.group({
+      apiVersion: '',
+      kind: '',
+      preferences: '',
       clusters: fb.array([]),
       users: fb.array([]),
       contexts: fb.array([]),
@@ -100,6 +104,33 @@ export class AppComponent implements OnInit {
     if (sessionStorage['yamlText']) {
       this.yamlText = sessionStorage['yamlText'];
     }
+    if (this.yamlText === null) {
+      this.yamlText =
+        `
+apiVersion: v1
+kind: Config
+preferences: {}
+
+clusters:
+- cluster:
+  name: development
+- cluster:
+  name: scratch
+
+users:
+- name: developer
+- name: experimenter
+
+contexts:
+- context:
+  name: dev-frontend
+- context:
+  name: dev-storage
+- context:
+  name: exp-scratch
+
+`
+    }
   }
 
   onLoad() {
@@ -109,6 +140,12 @@ export class AppComponent implements OnInit {
     if (this.yamlText) {
       sessionStorage['yamlText'] = this.yamlText;
       this.yamlObj = load(this.yamlText) as KubeConfig;
+      this.formGroup.patchValue({
+        apiVersion: this.yamlObj.apiVersion,
+        kind: this.yamlObj.kind,
+        preferences: this.yamlObj.preferences,
+      });
+
       for (let item of this.yamlObj.clusters) {
         this.clusters.push(this.fb.group({
           'name': this.fb.control(item.name),

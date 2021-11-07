@@ -1,12 +1,19 @@
-<textarea cols="200" rows="10" [(ngModel)]="yamlText"></textarea>
-<br>
-<button mat-raised-button color="primary" (click)="onLoad()">Load</button>
-<button mat-raised-button color="warn" (click)="onDump()">Dump</button>
-<br>
+<mat-toolbar color="primary">
+  <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between none" >
+    <button mat-flat-button color="primary">KubeCtxMgmt</button>
+    <button mat-flat-button color="primary"><a href="https://github.com/poduo-studio/KubeCtxMgmt">GitHub</a></button>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <mat-tab-group>
+  <mat-tab label="Loading">
+    <textarea style="width:99%; height: 80vh" rows="30" [(ngModel)]="yamlText"></textarea>
+    <br>
+    <button mat-raised-button color="primary" (click)="onLoad()">Load</button>
+    <button mat-raised-button color="warn" (click)="onDump()">Dump</button>
+    <br></mat-tab>
   <mat-tab label="Contexts">
-    <span fxLayout="row">
+    <span fxLayout="row" fxLayoutAlign="space-evenly none" >
       <span [formGroup]="formGroup" >
         <div fxLayout="column" formArrayName="contexts">
           <span *ngFor="let item of contexts.controls; let i=index" [formGroupName]="i">
@@ -46,7 +53,7 @@
     </span>
   </mat-tab>
   <mat-tab label="Clusters">
-    <span fxLayout="row" >
+    <span fxLayout="row" fxLayoutAlign="space-evenly none" >
       <span [formGroup]="formGroup" >
         <div fxLayout="column" formArrayName="clusters">
           <span *ngFor="let item of clusters.controls; let i=index" [formGroupName]="i">
@@ -78,7 +85,7 @@
     </span>
   </mat-tab>
   <mat-tab label="Users">
-    <span fxLayout="row" >
+    <span fxLayout="row" fxLayoutAlign="space-evenly none" >
       <span [formGroup]="formGroup" >
         <div fxLayout="column" formArrayName="users">
           <span *ngFor="let item of users.controls; let i=index" [formGroupName]="i">

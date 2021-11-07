@@ -104,7 +104,7 @@ export class AppComponent implements OnInit {
     if (sessionStorage['yamlText']) {
       this.yamlText = sessionStorage['yamlText'];
     }
-    if (this.yamlText === null) {
+    if (this.yamlText === undefined || this.yamlText === '') {
       this.yamlText =
         `
 apiVersion: v1
@@ -148,13 +148,17 @@ contexts:
       for (let item of this.yamlObj.clusters) {
         const g = {
           name: this.fb.control(item.name),
-          cluster: this.fb.group({}),
+          cluster: this.fb.group({
+            'server': '',
+            'certificate-authority-data': '',
+            'certificate-authority': '',
+          }),
         };
         if (item.cluster !== null && item.cluster !== undefined) {
           g['cluster'] = this.fb.group({
             server: this.fb.control(item.cluster?.server),
+            'certificate-authority-data': this.fb.control(item.cluster['certificate-authority-data']),
             'certificate-authority': this.fb.control(item.cluster['certificate-authority']),
-            'certificate-authority-data': this.fb.control(item.cluster['certificate-authority-data'])
           });
         }
         this.clusters.push(this.fb.group(g));
@@ -162,9 +166,14 @@ contexts:
       for (let item of this.yamlObj.users) {
         const g = {
           name: this.fb.control(item.name),
-          cluster: this.fb.group({}),
+          cluster: this.fb.group({
+            'client-certificate-data': '',
+            'client-certificate': '',
+            'client-key-data': '',
+            'client-key': '',
+        }),
         };
-        if (item.user !== null) {
+        if (item.user !== null && item.user !== undefined) {
           g['cluster'] =this.fb.group({
             'client-certificate-data': this.fb.control(item.user['client-certificate-data']),
             'client-certificate': this.fb.control(item.user['client-certificate']),
@@ -177,9 +186,13 @@ contexts:
       for (let item of this.yamlObj.contexts) {
         const g = {
           name: this.fb.control(item.name),
-          context: this.fb.group({}),
+          context: this.fb.group({
+            cluster: '',
+            user: '',
+            namespace: '',
+          }),
         };
-        if (item.context != null) {
+        if (item.context != null && item.context !== undefined) {
           g['context'] = this.fb.group({
             cluster: this.fb.control(item.context?.cluster),
             user: this.fb.control(item.context?.user),

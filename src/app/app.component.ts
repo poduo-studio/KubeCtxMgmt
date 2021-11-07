@@ -73,15 +73,15 @@ export class AppComponent implements OnInit {
   formGroup: FormGroup;
 
   get clusters(): FormArray {
-    return (this.formGroup.get('clusters') as FormArray);
+    return this.formGroup.get('clusters') as FormArray;
   }
 
   get users(): FormArray {
-    return (this.formGroup.get('users') as FormArray);
+    return this.formGroup.get('users') as FormArray;
   }
 
   get contexts(): FormArray {
-    return (this.formGroup.get('contexts') as FormArray);
+    return this.formGroup.get('contexts') as FormArray;
   }
 
   constructor(private fb: FormBuilder) {

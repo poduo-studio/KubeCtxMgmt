@@ -4,25 +4,25 @@
 <button mat-raised-button color="warn" (click)="onDump()">Dump</button>
 <br>
 
-<div fxLayout="row" fxLayoutAlign="space-around center" [formGroup]="formGroup">
+<form fxLayout="row" fxLayoutAlign="space-around center" [formGroup]="formGroup">
     <!--        <div mat-line>server: {{cluster?.cluster?.server}}</div>-->
     <!--        <div mat-line>certificate-authority: <pre *ngIf="cluster?.cluster">{{cluster.cluster["certificate-authority"]}}</pre></div>-->
     <!--        <div mat-line>certificate-authority-data: <pre *ngIf="cluster?.cluster">{{cluster.cluster["certificate-authority-data"]}}</pre></div>-->
 
   <div fxLayout="column" formArrayName="clusters">
     <div mat-subheader>Clusters</div>
-    <span *ngFor="let cluster of clusters.value; let i=index" [formGroupName]="i">
+    <span *ngFor="let cluster of clusters.controls; let i=index" >
       <mat-icon>cluster</mat-icon>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" [formGroupName]="i">
         <mat-label>Name</mat-label>
-        <input matInput placeholder="Name" formControlName="name">
+        <input type="text" matInput formControlName="name" value="">
       </mat-form-field>
     </span>
   </div>
 
   <div fxLayout="column" formArrayName="contexts">
     <div mat-subheader>Clusters</div>
-    <span *ngFor="let context of contexts.value; let i=index" [formGroupName]="i">
+    <span *ngFor="let context of contexts.controls; let i=index" [formGroupName]="i">
       <mat-icon>context</mat-icon>
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
@@ -33,7 +33,7 @@
 
   <div fxLayout="column" formArrayName="users">
     <div mat-subheader>Users</div>
-    <span *ngFor="let user of users.value; let i=index" [formGroupName]="i">
+    <span *ngFor="let user of users.controls; let i=index" [formGroupName]="i">
       <mat-icon>user</mat-icon>
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
@@ -41,4 +41,4 @@
       </mat-form-field>
     </span>
   </div>
-</div>
+</form>

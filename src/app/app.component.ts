@@ -97,8 +97,8 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (localStorage['yamlText']) {
-      this.yamlText = localStorage['yamlText'];
+    if (sessionStorage['yamlText']) {
+      this.yamlText = sessionStorage['yamlText'];
     }
   }
 
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit {
     this.users.clear();
     this.contexts.clear();
     if (this.yamlText) {
-      localStorage['yamlText'] = this.yamlText;
+      sessionStorage['yamlText'] = this.yamlText;
       this.yamlObj = load(this.yamlText) as KubeConfig;
       for (let item of this.yamlObj.clusters) {
         this.clusters.push(this.fb.group({

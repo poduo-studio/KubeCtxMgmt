@@ -23,7 +23,16 @@
         <span formGroupName="context">
           <mat-form-field appearance="fill">
             <mat-label>context.cluster</mat-label>
-            <input matInput formControlName="cluster">
+            <mat-select formControlName="cluster">
+              <mat-option [value]="item.value.name" *ngFor="let item of clusters.controls">{{item.value.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br/>
+          <mat-form-field appearance="fill">
+            <mat-label>context.user</mat-label>
+            <mat-select formControlName="user">
+              <mat-option [value]="item.value.name" *ngFor="let item of users.controls">{{item.value.name}}</mat-option>
+            </mat-select>
           </mat-form-field>
           <br/>
           <mat-form-field appearance="fill">
@@ -31,10 +40,6 @@
             <input matInput formControlName="namespace">
           </mat-form-field>
           <br/>
-          <mat-form-field appearance="fill">
-            <mat-label>context.user</mat-label>
-            <input matInput formControlName="user">
-          </mat-form-field>
         </span>
         <mat-divider></mat-divider>
       </div>

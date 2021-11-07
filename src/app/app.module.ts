@@ -13,6 +13,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatInputModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

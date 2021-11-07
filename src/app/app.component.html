@@ -11,6 +11,8 @@
         <mat-icon mat-list-icon>cluster</mat-icon>
         <div mat-line>name: {{cluster?.name}}</div>
         <div mat-line>server: {{cluster?.cluster?.server}}</div>
+<!--        <div mat-line>certificate-authority: <pre *ngIf="cluster?.cluster">{{cluster.cluster["certificate-authority"]}}</pre></div>-->
+<!--        <div mat-line>certificate-authority-data: <pre *ngIf="cluster?.cluster">{{cluster.cluster["certificate-authority-data"]}}</pre></div>-->
       </mat-list-item>
     </mat-list>
   </mat-grid-tile>

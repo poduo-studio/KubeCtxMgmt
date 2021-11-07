@@ -4,92 +4,112 @@
 <button mat-raised-button color="warn" (click)="onDump()">Dump</button>
 <br>
 
-<form fxLayout="row" fxLayoutAlign="space-around start" [formGroup]="formGroup">
-  <div fxLayout="column" formArrayName="clusters">
-    <div mat-subheader>Clusters</div>
-    <span *ngFor="let item of clusters.controls; let i=index" [formGroupName]="i">
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input type="text" matInput formControlName="name">
-      </mat-form-field>
-      <br/>
-      <mat-form-field appearance="fill" formGroupName="cluster">
-        <mat-label>cluster.server</mat-label>
-        <input type="text" matInput formControlName="server">
-      </mat-form-field>
-      <br/>
-      <mat-form-field appearance="fill" formGroupName="cluster">
-        <mat-label>cluster.certificate-authority-data</mat-label>
-        <textarea matInput formControlName="certificate-authority-data" rows="8" cols="50"></textarea>
-      </mat-form-field>
-      <br/>
-      <mat-form-field appearance="fill" formGroupName="cluster">
-        <mat-label>cluster.certificate-authority</mat-label>
-        <textarea matInput formControlName="certificate-authority" rows="8" cols="50  "></textarea>
-      </mat-form-field>
-      <mat-divider></mat-divider>
-    </span>
-  </div>
-
-  <div fxLayout="column" formArrayName="contexts">
-    <div mat-subheader>Contexts</div>
-    <span *ngFor="let item of contexts.controls; let i=index" [formGroupName]="i">
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Name" formControlName="name">
-      </mat-form-field>
-      <br/>
-      <span formGroupName="context">
-        <mat-form-field appearance="fill">
-          <mat-label>context.cluster</mat-label>
-          <input matInput formControlName="cluster">
-        </mat-form-field>
-        <br/>
-        <mat-form-field appearance="fill">
-          <mat-label>context.namespace</mat-label>
-          <input matInput formControlName="namespace">
-        </mat-form-field>
-        <br/>
-        <mat-form-field appearance="fill">
-          <mat-label>context.user</mat-label>
-          <input matInput formControlName="user">
-        </mat-form-field>
+<mat-tab-group>
+  <mat-tab label="Contexts">
+    <span fxLayout="row">
+      <span [formGroup]="formGroup" >
+        <div fxLayout="column" formArrayName="contexts">
+          <span *ngFor="let item of contexts.controls; let i=index" [formGroupName]="i">
+            <h2 (click)="onSelectContext(item)">{{ item.value.name }}</h2>
+          </span>
+        </div>
       </span>
-      <mat-divider></mat-divider>
+      <div *ngIf="selectedContext" [formGroup]="selectedContext">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+        <br/>
+        <span formGroupName="context">
+          <mat-form-field appearance="fill">
+            <mat-label>context.cluster</mat-label>
+            <input matInput formControlName="cluster">
+          </mat-form-field>
+          <br/>
+          <mat-form-field appearance="fill">
+            <mat-label>context.namespace</mat-label>
+            <input matInput formControlName="namespace">
+          </mat-form-field>
+          <br/>
+          <mat-form-field appearance="fill">
+            <mat-label>context.user</mat-label>
+            <input matInput formControlName="user">
+          </mat-form-field>
+        </span>
+        <mat-divider></mat-divider>
+      </div>
     </span>
-  </div>
-
-  <div fxLayout="column" formArrayName="users">
-    <div mat-subheader>Users</div>
-    <span *ngFor="let item of users.controls; let i=index" [formGroupName]="i">
-      <mat-icon>user</mat-icon>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Name" formControlName="name">
-      </mat-form-field>
-      <br/>
-      <span formGroupName="cluster">
-        <mat-form-field appearance="fill">
-          <mat-label>user.client-certificate-data</mat-label>
-          <textarea matInput formControlName="client-certificate-data" rows="8" cols="50"></textarea>
-        </mat-form-field>
-        <br/>
-        <mat-form-field appearance="fill">
-          <mat-label>user.client-certificate</mat-label>
-          <input matInput formControlName="client-certificate"/>
-        </mat-form-field>
-        <br/>
-        <mat-form-field appearance="fill">
-          <mat-label>user.client-key-data</mat-label>
-          <textarea matInput formControlName="client-key-data" rows="8" cols="50"></textarea>
-        </mat-form-field>
-        <br/>
-        <mat-form-field appearance="fill">
-          <mat-label>user.client-key</mat-label>
-          <input matInput formControlName="client-key"/>
-        </mat-form-field>
+  </mat-tab>
+  <mat-tab label="Clusters">
+    <span fxLayout="row" >
+      <span [formGroup]="formGroup" >
+        <div fxLayout="column" formArrayName="clusters">
+          <span *ngFor="let item of clusters.controls; let i=index" [formGroupName]="i">
+            <h2 (click)="onSelectCluster(item)">{{ item.value.name }}</h2>
+          </span>
+        </div>
       </span>
+      <div *ngIf="selectedCluster" [formGroup]="selectedCluster">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput formControlName="name">
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill" formGroupName="cluster">
+          <mat-label>cluster.server</mat-label>
+          <input type="text" matInput formControlName="server">
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill" formGroupName="cluster">
+          <mat-label>cluster.certificate-authority-data</mat-label>
+          <textarea matInput formControlName="certificate-authority-data" rows="8" cols="50"></textarea>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill" formGroupName="cluster">
+          <mat-label>cluster.certificate-authority</mat-label>
+          <textarea matInput formControlName="certificate-authority" rows="8" cols="50  "></textarea>
+        </mat-form-field>
+      </div>
     </span>
-    <mat-divider></mat-divider>
-  </div>
-</form>
+  </mat-tab>
+  <mat-tab label="Users">
+    <span fxLayout="row" >
+      <span [formGroup]="formGroup" >
+        <div fxLayout="column" formArrayName="users">
+          <span *ngFor="let item of users.controls; let i=index" [formGroupName]="i">
+            <h2 (click)="onSelectUser(item)">{{ item.value.name }}</h2>
+          </span>
+        </div>
+      </span>
+      <div *ngIf="selectedUser" [formGroup]="selectedUser">
+        <mat-icon>user</mat-icon>
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+        <br/>
+        <span formGroupName="cluster">
+          <mat-form-field appearance="fill">
+            <mat-label>user.client-certificate-data</mat-label>
+            <textarea matInput formControlName="client-certificate-data" rows="8" cols="50"></textarea>
+          </mat-form-field>
+          <br/>
+          <mat-form-field appearance="fill">
+            <mat-label>user.client-certificate</mat-label>
+            <input matInput formControlName="client-certificate"/>
+          </mat-form-field>
+          <br/>
+          <mat-form-field appearance="fill">
+            <mat-label>user.client-key-data</mat-label>
+            <textarea matInput formControlName="client-key-data" rows="8" cols="50"></textarea>
+          </mat-form-field>
+          <br/>
+          <mat-form-field appearance="fill">
+            <mat-label>user.client-key</mat-label>
+            <input matInput formControlName="client-key"/>
+          </mat-form-field>
+        </span>
+      </div>
+    </span>
+  </mat-tab>
+</mat-tab-group>

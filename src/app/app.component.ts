@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { dump, load } from "js-yaml";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from "@angular/forms";
 
 
 interface Extension {
@@ -71,6 +71,9 @@ export class AppComponent implements OnInit {
   yamlObj: KubeConfig | undefined;
 
   formGroup: FormGroup;
+  selectedContext: FormGroup | undefined;
+  selectedCluster: FormGroup | undefined;
+  selectedUser: FormGroup | undefined;
 
   get clusters(): FormArray {
     return this.formGroup.get('clusters') as FormArray;
@@ -142,5 +145,17 @@ export class AppComponent implements OnInit {
 
   onDump() {
     this.yamlText = dump(this.formGroup.value);
+  }
+
+  onSelectContext(item: AbstractControl) {
+    this.selectedContext = item as FormGroup;
+  }
+
+  onSelectCluster(item: AbstractControl) {
+    this.selectedCluster = item as FormGroup;
+  }
+
+  onSelectUser(item: AbstractControl) {
+    this.selectedUser = item as FormGroup;
   }
 }
